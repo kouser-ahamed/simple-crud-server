@@ -23,10 +23,16 @@ const run = async () => {
    try {
       await client.connect();
 
-      const  db = client.db('simplCrud');
+      const  db = client.db('simpleCrud');
       const usersCollection = db.collection('users'); 
 
-      
+      app.get('/users', async (req, res) => {
+
+         const cursor = usersCollection.find();
+         const result = await cursor.toArray();
+         res.send(result);
+
+      })
 
 
       await client.db('admin').command({ ping: 1 });
